@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Чат</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; }
+        #messages { border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        .message { margin-bottom: 5px; padding: 5px; background: #f0f0f0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h2>Групповой чат</h2>
+    <div id="messages"></div>
+    
+    <input type="text" id="messageInput" placeholder="Введите сообщение..." style="width: 70%;">
+    <button onclick="sendMessage()">Отправить</button>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8765");
+
+        socket.onmessage = function(event) {
+            const messagesDiv = document.getElementById("messages");
+            const messageElement = document.createElement("div");
+            messageElement.className = "message";
+            messageElement.textContent = event.data;
+            messagesDiv.appendChild(messageElement);
+            
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        };
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            if (input.value) {
+                socket.send(input.value);
+                input.value = ""; 
+            }
+        }
+
+        document.getElementById("messageInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
