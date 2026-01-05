@@ -1,5 +1,6 @@
 import uuid
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 from ...base import Base
 
 class User(Base):
@@ -9,3 +10,15 @@ class User(Base):
     login = Column(String, unique=True, index=True)
     name = Column(String, index=True)
     hashed_password = Column(String)
+
+    sent_messages = relationship(
+        "Message",
+        foreign_keys="Message.sender_id",
+        back_populates="sender",
+    )
+
+    received_messages = relationship(
+        "Message",
+        foreign_keys="Message.recipient_id",
+        back_populates="recipient",
+    )

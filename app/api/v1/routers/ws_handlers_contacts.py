@@ -3,22 +3,11 @@ from sqlalchemy.orm import Session
 
 from ....db.repositories.contacts import crud as contacts_crud
 from ....db.repositories.pending import crud as pending_crud
-from .ws_utils import send_ws_message
+from .ws_utils import send_ws_message, require_auth
 from . import ws_schemas
 
 WSHandler = Callable[[dict, Any, Session, Dict[str, Any], Dict[str, Any]],
                      Awaitable[None]]
-
-async def require_auth(state: Dict[str, Any], websocket) -> Any:
-    user = state.get("current_user")
-    if not user:
-        await send_ws_message(
-            websocket,
-            "error",
-            ws_schemas.ErrorData(detail="not authenticated")
-        )
-        return None
-    return user
 
 async def handle_send_contact_request(msg, websocket, db: Session, active_ws, state):
     user = await require_auth(state, websocket)

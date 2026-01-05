@@ -1,5 +1,5 @@
-from typing import Optional, Union
-from .ws_schemas import WSMessage, MessageData
+from typing import Optional, Dict, Any
+from .ws_schemas import WSMessage, MessageData, ErrorData
 
 async def send_ws_message(
         websocket,
@@ -13,3 +13,14 @@ async def send_ws_message(
         msg = WSMessage(type=type_, data=data)
 
     await websocket.send_json(msg.model_dump())
+
+async def require_auth(state: Dict[str, Any], websocket) -> Any:
+    user = state.get("current_user")
+    if not user:
+        await send_ws_message(
+            websocket,
+            "error",
+            ErrorData(detail="not authenticated")
+        )
+        return None
+    return user
