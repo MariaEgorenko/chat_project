@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация - Web Messenger{% endblock %}
+
+{% block content %}
+<main class="flex flex-1 justify-center items-center py-16 px-4 sm:px-6">
+  <div class="layout-content-container flex flex-col w-full max-w-[480px] bg-white dark:bg-[#192233] rounded-2xl shadow-xl dark:shadow-none border border-[#e5e7eb] dark:border-[#2a3750]">
+    <div class="flex flex-col gap-2 p-6 text-center sm:text-left">
+      <h1 class="text-slate-900 dark:text-white tracking-tight text-[28px] font-bold leading-tight">
+        Регистрация
+      </h1>
+      <p class="text-slate-500 dark:text-[#92a4c9] text-sm font-normal leading-normal">
+        Заполните форму, чтобы создать новый аккаунт
+      </p>
+    </div>
+
+    <form
+      id="register-form"
+      class="flex flex-col gap-4 px-6 pb-6"
+      onsubmit="event.preventDefault();"
+    >
+      <label class="flex flex-col gap-2">
+        <span class="text-slate-900 dark:text-white text-sm font-bold leading-normal">
+          Имя
+        </span>
+        <input
+          id="name-input"
+          class="form-input flex w-full rounded-lg border border-slate-300 dark:border-[#324467] bg-white dark:bg-[#111722] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#64748b] focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-sm transition-colors"
+          name="name"
+          placeholder="Ваше имя"
+          type="text"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2">
+        <span class="text-slate-900 dark:text-white text-sm font-bold leading-normal">
+          Логин
+        </span>
+        <input
+          id="login-input"
+          class="form-input flex w-full rounded-lg border border-slate-300 dark:border-[#324467] bg-white dark:bg-[#111722] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#64748b] focus:border-primary focus:ring-1 focus:ring-primary h-12 px-4 text-sm transition-colors"
+          name="username"
+          placeholder="Придумайте логин"
+          type="text"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2">
+        <span class="text-slate-900 dark:text-white text-sm font-bold leading-normal">
+          Пароль
+        </span>
+        <div class="relative flex w-full items-stretch rounded-lg group focus-within:ring-1 focus-within:ring-primary">
+          <input
+            id="password-input"
+            class="form-input flex w-full rounded-lg rounded-r-none border border-r-0 border-slate-300 dark:border-[#324467] bg-white dark:bg-[#111722] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#64748b] focus:border-primary focus:ring-0 h-12 px-4 text-sm transition-colors"
+            name="password"
+            placeholder="Придумайте пароль"
+            type="password"
+          />
+          <button
+            type="button"
+            class="flex items-center justify-center px-4 rounded-r-lg border border-l-0 border-slate-300 dark:border-[#324467] bg-white dark:bg-[#111722] text-slate-400 group-focus-within:border-primary transition-colors cursor-pointer hover:text-primary"
+          >
+            <span class="material-symbols-outlined select-none text-[20px]">
+              visibility
+            </span>
+          </button>
+        </div>
+      </label>
+
+      <p id="register-error" class="text-sm text-red-500 mt-1 hidden"></p>
+
+      <button
+        id="register-button"
+        class="mt-2 flex w-full items-center justify-center rounded-lg bg-primary hover:bg-blue-600 active:bg-blue-700 text-white font-bold h-12 px-6 text-sm tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        type="submit"
+      >
+        Зарегистрироваться
+      </button>
+
+      <div class="mt-2 flex justify-center gap-2 text-sm text-slate-500 dark:text-[#92a4c9]">
+        <span>Уже есть аккаунт?</span>
+        <a
+          class="font-medium text-primary hover:text-blue-400 transition-colors"
+          href="/"
+        >
+          Войти
+        </a>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='js/register.js') }}"></script>
+{% endblock %}

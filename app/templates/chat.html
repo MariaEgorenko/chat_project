@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Чат - Web Messenger{% endblock %}
+
+{% block header_right %}
+  <button class="flex items-center justify-center text-slate-500 hover:text-primary transition-colors">
+    <span class="material-symbols-outlined text-2xl">notifications</span>
+  </button>
+  <div class="flex items-center gap-3">
+    <div
+      class="h-9 w-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-primary font-bold text-sm cursor-pointer hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all"
+    >
+      {{ user.login[:2] | upper }}
+    </div>
+    <button
+      id="logout-button"
+      class="cursor-pointer text-slate-500 hover:text-primary transition-colors text-sm font-medium"
+    >
+      Выйти
+    </button>
+  </div>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-1 flex-col items-center py-6 px-4 sm:px-6">
+  <div class="w-full max-w-5xl flex flex-col gap-4 h-full" data-chat-id="{{ chat_id }}" id="chat-root">
+    <!-- Шапка чата -->
+    <div class="flex items-center justify-between py-2">
+      <div class="flex items-center gap-4">
+        <a
+          href="/chats"
+          class="flex items-center gap-1.5 px-3 py-1.5 -ml-3 rounded-lg text-slate-500 hover:text-primary hover:bg-slate-100 transition-colors font-medium"
+        >
+          <span class="material-symbols-outlined text-xl">arrow_back</span>
+          Назад
+        </a>
+        <div class="h-6 w-px bg-slate-300"></div>
+        <div class="flex items-center gap-3">
+          <div
+            class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold text-base shadow-sm"
+          >
+            {{ companion_name[:2] | upper }}
+          </div>
+          <div>
+            <h1 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+              {{ companion_name }}
+            </h1>
+            <div class="flex items-center gap-1.5">
+              <div class="w-2 h-2 rounded-full bg-green-500"></div>
+              <p class="text-xs text-slate-500 font-medium">В сети</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="flex items-center justify-center w-8 h-8 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+        type="button"
+      >
+        <span class="material-symbols-outlined">more_vert</span>
+      </button>
+    </div>
+
+    <div
+      class="flex flex-col w-full flex-1 rounded-2xl bg-white dark:bg-[#0b1220] border border-slate-200 dark:border-[#2a3750] shadow-sm min-h-[600px] overflow-hidden"
+    >
+      <div
+        id="messages-container"
+        class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/30 dark:bg-[#020617]"
+      ></div>
+
+      <div class="p-4 bg-white dark:bg-[#020617] border-t border-slate-200 dark:border-[#1f2937]">
+        <form id="message-form" class="flex gap-3 items-end" autocomplete="off">
+          <button class="p-2.5 text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-[#020617] rounded-xl transition-colors" type="button">
+            <span class="material-symbols-outlined">attach_file</span>
+          </button>
+          <div class="relative flex-1">
+            <textarea
+              id="message-input"
+              class="block w-full rounded-xl border-slate-200 dark:border-[#1f2937] bg-slate-50 dark:bg-[#020617] py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-[#64748b] focus:border-primary focus:ring-primary sm:text-sm sm:leading-6 resize-none shadow-sm"
+              placeholder="Напишите сообщение..."
+              rows="1"
+            ></textarea>
+          </div>
+          <button
+            class="flex items-center justify-center h-11 w-11 rounded-xl bg-primary text-white hover:bg-blue-600 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            type="submit"
+          >
+            <span class="material-symbols-outlined text-[20px]">send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='js/chat.js') }}"></script>
+{% endblock %}

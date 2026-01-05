@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Чаты - Web Messenger{% endblock %}
+
+{% block header_right %}
+  <button class="flex items-center justify-center text-slate-500 hover:text-primary transition-colors">
+    <span class="material-symbols-outlined text-2xl">notifications</span>
+  </button>
+  <div
+    class="h-9 w-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-primary font-bold text-sm cursor-pointer hover:ring-2 hover:ring-primary hover:ring-offset-2 transition-all"
+  >
+    {{ user.login[:2] | upper }}
+  </div>
+  <button
+    id="logout-button"
+    class="cursor-pointer flex items-center gap-1 px-3 h-9 rounded-lg border border-slate-300 bg-white dark:bg-[#111722] text-slate-600 dark:text-slate-200 text-sm font-medium hover:bg-slate-50 dark:hover:bg-[#1a2233] hover:border-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+  >
+    <span class="material-symbols-outlined text-[18px]">logout</span>
+    Выйти
+  </button>
+{% endblock %}
+
+{% block content %}
+<main class="flex flex-1 flex-col items-center py-10 px-4 sm:px-6">
+  <div class="w-full max-w-5xl flex flex-col gap-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+        Чаты
+      </h1>
+      <div class="flex items-center gap-3">
+        <button
+          id="contacts-button"
+          class="cursor-pointer flex items-center gap-2 px-5 h-11 rounded-lg border border-slate-300 bg-white dark:bg-[#111722] text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-50 dark:hover:bg-[#1a2233] hover:border-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+        >
+          <span class="material-symbols-outlined text-[20px]">group</span>
+          Контакты
+        </button>
+        <button
+          id="create-chat-button"
+          class="cursor-pointer flex items-center gap-2 px-5 h-11 rounded-lg bg-primary text-white font-medium hover:bg-blue-600 active:bg-blue-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+          <span class="material-symbols-outlined text-[20px]">add_comment</span>
+          Создать чат
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col w-full rounded-2xl bg-white dark:bg-[#111722] border border-slate-200 dark:border-[#2a3750] shadow-sm min-h-[500px] overflow-hidden"
+    >
+      <div class="p-6 border-b border-slate-200 dark:border-[#2a3750]">
+        <div class="relative w-full">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+          </div>
+          <input
+            id="chat-search"
+            class="block w-full rounded-lg border-0 bg-slate-100 dark:bg-[#0f172a] py-2.5 pl-10 pr-4 text-slate-900 dark:text-white ring-1 ring-inset ring-slate-200 dark:ring-[#1f2937] placeholder:text-slate-400 dark:placeholder:text-[#6b7280] focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            placeholder="Найти чат..."
+            type="text"
+          />
+        </div>
+      </div>
+
+      <!-- Единственный контейнер, в который пишет JS -->
+      <div id="chat-list" class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-[#1f2937]">
+        <!-- JS будет рендерить сюда:
+             - заглушку, если items.length === 0
+             - список чатов, если items.length > 0
+        -->
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="{{ url_for('static', path='js/chats.js') }}"></script>
+{% endblock %}

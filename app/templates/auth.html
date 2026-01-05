@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Вход в аккаунт - Web Messenger{% endblock %}
+
+{% block content %}
+<div class="layout-container flex h-full grow flex-col justify-center items-center py-10 px-4 sm:px-6">
+  <div class="w-full max-w-[440px] flex flex-col bg-white dark:bg-[#192233] rounded-2xl shadow-xl dark:shadow-none border border-[#e5e7eb] dark:border-[#2a3750] overflow-hidden">
+    <div class="px-8 pt-10 pb-2 flex flex-col items-center">
+      <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4">
+        <span class="material-symbols-outlined text-[28px]">lock</span>
+      </div>
+      <h2 class="text-slate-900 dark:text-white text-[24px] font-bold leading-tight tracking-[-0.015em] text-center">
+        Вход в аккаунт
+      </h2>
+      <p class="text-slate-500 dark:text-[#92a4c9] text-sm mt-2 text-center">
+        Добро пожаловать обратно! Пожалуйста, введите свои данные.
+      </p>
+    </div>
+
+    <div class="p-8 flex flex-col gap-5">
+      <label class="flex flex-col flex-1 gap-2">
+        <p class="text-slate-900 dark:text-white text-sm font-bold leading-normal">Логин</p>
+        <div class="relative group">
+          <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+          <input
+            id="login-input"
+            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#e5e7eb] dark:border-[#324467] bg-slate-50 dark:bg-[#111722] focus:border-primary h-12 pl-[44px] pr-[15px] text-sm font-normal leading-normal transition-all placeholder:text-slate-400 dark:placeholder:text-[#64748b]"
+            placeholder="Введите ваш логин или email"
+            type="text"
+          />
+        </div>
+      </label>
+
+      <label class="flex flex-col flex-1 gap-2">
+        <div class="flex justify-between items-center">
+          <p class="text-slate-900 dark:text-white text-sm font-bold leading-normal">Пароль</p>
+        </div>
+        <div class="relative group">
+          <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+            <span class="material-symbols-outlined text-[20px]">key</span>
+          </div>
+          <input
+            id="password-input"
+            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border border-[#e5e7eb] dark:border-[#324467] bg-slate-50 dark:bg-[#111722] focus:border-primary h-12 pl-[44px] pr-[44px] text-sm font-normal leading-normal transition-all placeholder:text-slate-400 dark:placeholder:text-[#64748b]"
+            placeholder="Введите ваш пароль"
+            type="password"
+          />
+        </div>
+      </label>
+
+      <p id="login-error" class="text-sm text-red-500 mt-1 hidden"></p>
+
+      <div class="pt-2 flex flex-col gap-4">
+        <button
+          id="login-button"
+          class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-primary hover:bg-blue-600 text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
+        >
+          <span class="truncate">Войти</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-slate-50 dark:bg-[#111722] px-8 py-4 border-t border-[#e5e7eb] dark:border-[#324467] text-center">
+      <p class="text-sm text-slate-500 dark:text-[#92a4c9]">
+        Ещё нет аккаунта?
+        <a id="register-link" class="cursor-pointer font-bold text-primary hover:text-primary/80 transition-colors ml-1">
+          Зарегистрироваться
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', path='js/auth.js') }}"></script>
+{% endblock %}

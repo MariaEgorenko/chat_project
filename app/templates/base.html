@@ -1,17 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Чат{% endblock %}</title>
-</head>
-<body>
-<header>
-    <h1>Учебный чат</h1>
-    <hr>
-</header>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>{% block title %}Web Messenger{% endblock %}</title>
 
-<main>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#2b6cee",
+            "background-light": "#f6f6f8",
+            "background-dark": "#101622",
+          },
+          fontFamily: {
+            "display": ["Spline Sans", "Noto Sans", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+
+  {% block head_extra %}{% endblock %}
+</head>
+
+<body class="font-display antialiased text-slate-900 dark:text-white bg-background-light dark:bg-background-dark min-h-screen flex flex-col overflow-x-hidden selection:bg-primary/30">
+  <div class="w-full border-b border-solid border-[#e5e7eb] dark:border-[#232f48] px-4 md:px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+    <div class="flex items-center justify-between max-w-[1280px] mx-auto">
+      <div class="flex items-center gap-3 text-slate-900 dark:text-white cursor-pointer hover:opacity-80 transition-opacity">
+        <div class="w-8 h-8 flex items-center justify-center bg-primary rounded-lg text-white">
+          <span class="material-symbols-outlined text-[20px]">chat</span>
+        </div>
+        <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Messenger</h2>
+      </div>
+      <div class="flex items-center gap-4">
+        {% block header_right %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1">
     {% block content %}{% endblock %}
-</main>
+  </main>
+
+  <div aria-hidden="true" class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-[120px]"></div>
+  </div>
+
+  {% block scripts %}{% endblock %}
 </body>
 </html>
