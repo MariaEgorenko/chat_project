@@ -46,13 +46,16 @@ def create_message(
 def get_chat_messages(
         db: Session, chat_id: str, limit: int = 50, offset: int = 0
 ) -> List[Message]:
-    return (
+    messages =  (
         db.query(Message)
         .filter(Message.chat_id == chat_id)
-        .order_by(Message.created_at.asc())
+        .order_by(desc(Message.created_at))
+        .offset(offset)
         .limit(limit)
         .all()
     )
+
+    return list(reversed(messages))
 
 def get_last_message_for_chat(db: Session, chat_id: str) -> Message | None:
     return (
