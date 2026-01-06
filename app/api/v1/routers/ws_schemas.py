@@ -5,16 +5,19 @@ from pydantic import BaseModel
 class ContactRequestDataIn(BaseModel):
     id: str
     from_user: str
+    from_user_name: str
 
 
 class ContactRequestDataOut(BaseModel):
     id: str
     to_user: str
+    to_user_name: str
 
 
 class ContactRequestListItemIn(BaseModel):
     id: str
     from_user: str
+    from_user_name: str
 
 
 class ContactRequestListDataIn(BaseModel):
@@ -24,6 +27,7 @@ class ContactRequestListDataIn(BaseModel):
 class ContactRequestListItemOut(BaseModel):
     id: str
     to_user: str
+    to_user_name: str
 
 
 class ContactRequestListDataOut(BaseModel):
@@ -48,6 +52,7 @@ class ChatMessageOut(BaseModel):
     id: str
     chat_id: str
     sender_id: str
+    current_user_id: str
     content: str
     created_at: str
 
@@ -55,6 +60,7 @@ class ChatMessageOut(BaseModel):
 class ChatHistoryItem(BaseModel):
     id: str
     sender_id: str
+    current_user_id: str
     content: str
     created_at: str
 

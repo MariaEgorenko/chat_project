@@ -14,6 +14,7 @@ class ContactOut(BaseModel):
     id: str
     user_id: str
     contact_id: str
+    name: str | None = None
 
     class Config:
         from_attributes = True

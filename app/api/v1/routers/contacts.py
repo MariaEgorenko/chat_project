@@ -28,10 +28,10 @@ def search_users(
     )
     return [u for u in users if u.id != current_user.id]
 
-@router.get("/", response_model=List[str])
+@router.get("/", response_model=List[contacts_schemas.ContactOut])
 def get_contacts(
         db: Session = Depends(get_db),
         current_user = Depends(get_current_user)
 ):
     contacts = contacts_crud.list_contacts(db, current_user.id)
-    return [contact.contact_id for contact in contacts]
+    return contacts

@@ -32,13 +32,15 @@ async def handle_send_contact_request(msg, websocket, db: Session, active_ws, st
         "contact_request_sent",
         ws_schemas.ContactRequestDataOut(
             id=req.id,
-            to_user=req.to_user_id
+            to_user=req.to_user_id,
+            to_user_name=req.to_user.name
         )
     )
 
     payload  = ws_schemas.ContactRequestDataIn(
             id=req.id,
             from_user=req.from_user_id,
+            from_user_name=user.name
         )
     
     other_ws = active_ws.get(to_user_id)
@@ -66,6 +68,7 @@ async def handle_get_pending_requests(msg, websocket, db: Session, active_ws, st
         ws_schemas.ContactRequestListItemIn(
             id=r.id,
             from_user=r.from_user_id,
+            from_user_name=r.from_user.name
         )
         for r in pending
     ]
@@ -85,6 +88,7 @@ async def handle_get_outgoing_requests(msg, websocket, db: Session, active_ws, s
         ws_schemas.ContactRequestListItemOut(
             id=r.id,
             to_user=r.to_user_id,
+            to_user_name=r.to_user.name
         )
         for r in outgoing
     ]
@@ -124,6 +128,7 @@ async def handle_accept_contact_request(msg, websocket, db: Session, active_ws, 
         data=ws_schemas.ContactRequestDataIn(
             id=req.id,
             from_user=req.from_user_id,
+            from_user_name=req.from_user.name
         ),
     )
 
@@ -132,6 +137,7 @@ async def handle_accept_contact_request(msg, websocket, db: Session, active_ws, 
     payload = ws_schemas.ContactRequestDataOut(
                 id=req.id,
                 to_user=req.to_user_id,
+                to_user_name=req.to_user.name
             )
     if other_ws:
         await send_ws_message(
@@ -176,7 +182,8 @@ async def handle_reject_contact_request(msg, websocket, db: Session, active_ws, 
         type_="contact_request_rejected",
         data=ws_schemas.ContactRequestDataIn(
             id=req.id,
-            from_user=req.from_user_id
+            from_user=req.from_user_id,
+            from_user_name=req.from_user.name
         )
     )
 
@@ -184,7 +191,8 @@ async def handle_reject_contact_request(msg, websocket, db: Session, active_ws, 
     other_ws = active_ws.get(other_user_id)
     payload = ws_schemas.ContactRequestDataOut(
                 id=req.id,
-                to_user=req.to_user_id
+                to_user=req.to_user_id,
+                to_user_name=req.to_user.name
             )
     if other_ws:
         await send_ws_message(
