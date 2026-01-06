@@ -12,20 +12,18 @@
     >
       {{ user.login[:2] | upper }}
     </div>
-    <button
-      id="logout-button"
-      class="cursor-pointer text-slate-500 hover:text-primary transition-colors text-sm font-medium"
-    >
-      Выйти
-    </button>
   </div>
 {% endblock %}
 
 {% block content %}
-<main class="flex flex-1 flex-col items-center py-6 px-4 sm:px-6">
-  <div class="w-full max-w-5xl flex flex-col gap-4 h-full" data-chat-id="{{ chat_id }}" id="chat-root">
+<main class="flex flex-col h-[calc(100vh-64px)] items-center py-6 px-4 sm:px-6">
+  <div
+    class="w-full max-w-5xl flex flex-col gap-4 h-full"
+    data-chat-id="{{ chat_id }}"
+    id="chat-root"
+  >
     <!-- Шапка чата -->
-    <div class="flex items-center justify-between py-2">
+    <div class="flex-none flex items-center justify-between py-2 w-full">
       <div class="flex items-center gap-4">
         <a
           href="/chats"
@@ -61,14 +59,14 @@
     </div>
 
     <div
-      class="flex flex-col w-full flex-1 rounded-2xl bg-white dark:bg-[#0b1220] border border-slate-200 dark:border-[#2a3750] shadow-sm min-h-[600px] overflow-hidden"
+      class="flex flex-col w-full flex-1 min-h-0 rounded-2xl bg-white dark:bg-[#0b1220] border border-slate-200 dark:border-[#2a3750] shadow-sm overflow-hidden"
     >
       <div
         id="messages-container"
         class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/30 dark:bg-[#020617]"
       ></div>
 
-      <div class="p-4 bg-white dark:bg-[#020617] border-t border-slate-200 dark:border-[#1f2937]">
+      <div class="flex-none p-4 bg-white dark:bg-[#020617] border-t border-slate-200 dark:border-[#1f2937]">
         <form id="message-form" class="flex gap-3 items-end" autocomplete="off">
           <button class="p-2.5 text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-[#020617] rounded-xl transition-colors" type="button">
             <span class="material-symbols-outlined">attach_file</span>
@@ -95,5 +93,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', path='js/chat.js') }}"></script>
+<script type="module" src="{{ url_for('static', path='js/chat.js') }}"></script>
 {% endblock %}
