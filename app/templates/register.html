@@ -3,6 +3,22 @@
 {% block title %}Регистрация - Web Messenger{% endblock %}
 
 {% block content %}
+<style>
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+      display: none;
+  }
+
+  input[type="password"]::-webkit-contacts-auto-fill-button,
+  input[type="password"]::-webkit-credentials-auto-fill-button {
+      visibility: hidden;
+      display: none !important;
+      pointer-events: none;
+      height: 0;
+      width: 0;
+      margin: 0;
+  }
+</style>
 <main class="flex flex-1 justify-center items-center py-16 px-4 sm:px-6">
   <div class="layout-content-container flex flex-col w-full max-w-[480px] bg-white dark:bg-[#192233] rounded-2xl shadow-xl dark:shadow-none border border-[#e5e7eb] dark:border-[#2a3750]">
     <div class="flex flex-col gap-2 p-6 text-center sm:text-left">
