@@ -3,6 +3,22 @@
 {% block title %}Вход в аккаунт - Web Messenger{% endblock %}
 
 {% block content %}
+<style>
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+      display: none;
+  }
+
+  input[type="password"]::-webkit-contacts-auto-fill-button,
+  input[type="password"]::-webkit-credentials-auto-fill-button {
+      visibility: hidden;
+      display: none !important;
+      pointer-events: none;
+      height: 0;
+      width: 0;
+      margin: 0;
+  }
+</style>
 <div class="layout-container flex h-full grow flex-col justify-center items-center py-10 px-4 sm:px-6">
   <div class="w-full max-w-[440px] flex flex-col bg-white dark:bg-[#192233] rounded-2xl shadow-xl dark:shadow-none border border-[#e5e7eb] dark:border-[#2a3750] overflow-hidden">
     <div class="px-8 pt-10 pb-2 flex flex-col items-center">
@@ -38,7 +54,7 @@
           <p class="text-slate-900 dark:text-white text-sm font-bold leading-normal">Пароль</p>
         </div>
         <div class="relative group">
-          <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+          <div class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors pointer-events-none">
             <span class="material-symbols-outlined text-[20px]">key</span>
           </div>
           <input
@@ -47,6 +63,13 @@
             placeholder="Введите ваш пароль"
             type="password"
           />
+          <button 
+            type="button"
+            id="toggle-password-btn"
+            class="absolute right-0 top-0 h-full px-3 text-slate-400 hover:text-primary cursor-pointer focus:outline-none transition-colors z-10 flex items-center justify-center"
+          >
+            <span class="material-symbols-outlined text-[20px] select-none">visibility</span>
+          </button>
         </div>
       </label>
 
